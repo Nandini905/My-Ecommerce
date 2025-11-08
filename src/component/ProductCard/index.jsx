@@ -6,9 +6,20 @@ export const ProductCard = ({ product, onAddToCart }) => {
     const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
     const inWishlist = isInWishlist(product.id);
 
-    const handleAddToCart = () => {
+    const handleAddToCart = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Add to cart clicked for product:', product.id, product.title || product.name);
         if (onAddToCart) {
             onAddToCart(product);
+            // Visual feedback - show a brief animation
+            const button = e.currentTarget;
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = '';
+            }, 150);
+        } else {
+            console.error('onAddToCart function is not provided to ProductCard');
         }
     };
 

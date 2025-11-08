@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ProductCard } from '../ProductCard';
 import { getAllProducts } from '../../getallproject';
 import { useCart } from '../../context/CartContext';
+import { showToast } from '../Toast';
 import './ProductListing.css';
 
 export const ProductListing = () => {
@@ -79,6 +80,9 @@ export const ProductListing = () => {
 
     const handleAddToCart = (product) => {
         addToCart(product);
+        // Show success toast notification
+        const message = `${product.title || product.name || 'Product'} added to cart!`;
+        showToast(message, 'success');
     };
 
     const getCategoryName = (product) => {
